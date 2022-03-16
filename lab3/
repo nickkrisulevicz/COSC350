@@ -1,0 +1,29 @@
+//Nick Krisulevicz
+//COSC 350 - Lab 3
+//03/10/2022
+//task8.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char * argv[]){ //main function takes strings representing file names as arguments
+	char fileread[] = argv[1]; //assign the argument to local variable for readfile
+	char filewrite[] = argv[2]; //assign the argument to local variable for writefile
+	FILE * fp1, fp2; //file pointers
+	char *c; //char buffer
+
+	fp1 = fopen(fileread, "r"); //open the readfile
+	fp2 = fopen(filewrite, "w"); //open the writefile
+	
+	//read from readfile
+	//convert to ANSI
+	//write to writefile
+
+	//close the files
+	fclose(fp1);
+	fclose(fp2);
+
+	return 0;
+}
