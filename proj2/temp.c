@@ -28,13 +28,13 @@ int main(int argc, char *argv[]){
 	}
 
 	//if the user inputs no arguments, print an error message
-	else if(argc < 2){
+	else if(argc < 1){
 		printf("You need to input a file to compress!\n");
 		exit(1);
 	}
 
 	//if the user inputs more than one argument, print an error message
-	else if(argc > 2){
+	else if(argc < 2){
 		printf("Too many arguments!\n");
 		exit(1);
 	}
@@ -81,33 +81,44 @@ int main(int argc, char *argv[]){
 		freqtable[readindex].freq++;
 	}
 
+	//print out all ASCII characters and their frequency in the file
+	//EDIT: this block of code is no longer necessary since there is a function to print the queue
+	/*
+	for(int i = 0; i < 128; i++){
+		printf("Value: %c Frequency: %d\n", freqtable[i].value, freqtable[i].freq);
+	}
+	*/
+
 
 	//At this point, build the priority queue with the array of values and freqnuencies
 
 
 	//initialize a qnode struct which will act as the front of our queue
-	struct tnode *priorityqueue;
+	//printf("initialized queue\n");
+	struct qnode *priorityqueue;
 
 	//create a for loop and call the createnode function to create a node out of the corresponding pair
 	//then call pushqueue function to add the node into the queue and repeat until loop is done
 	printf("Pushing queue\n");
 	for(int i = 0; i < 128; i++){
-		struct tnode *newnode = createnode(freqtable[i]);
-		printf("created node\n");
+		struct qnode *newnode = createnode(freqtable[i]);
 		pushqueue(&priorityqueue, newnode);
-		("pushed node\n");
-	}
-	printf("Pushing queue done\n");
-	//create another for loop and pop each elemement from the queue
-	for(int i = 0; i < 128; i++){
-		//printf("Value: %c Frequency: %d\n", topnode(&priorityqueue->nodevalue.value), topnode(&priorityqueue->nodevalue.freq));
-		//popqueue(&priorityqueue);
-		printf("creating shownode\n");
-		struct tnode *shownode = poppriority(&priorityqueue);
-		printf("printing shownode\n");
-		printf("Value: %c, Frequency: %d\n", (shownode->nodevalue).value, (shownode->nodevalue).freq);
 	}
 
+	printf("push successful\n");
+
+	//print function currently causes segmentation fault and so it is not used
+	//printqueue(&priorityqueue);
+
+	//create another for loop and pop each elemement from the queue
+	//since printqueue function is busted, the printing is achieved by calling a top function and then popping it from the queue
+	//printf("popping queue\n");
+	for(int i = 0; i < 128; i++){
+		printf("Value: %c Frequency: %d\n", topnode(&priorityqueue->nodevalue.value), topnode(&priorityqueue->nodevalue.freq));
+		popqueue(&priorityqueue);
+	}
+
+	//printf("queue has been popped\n");
 
 
 
